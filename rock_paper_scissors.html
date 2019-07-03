@@ -1,0 +1,121 @@
+<html>
+
+
+
+<button onclick="game()">Rock Paper Scissors Shoot!</button>
+
+<script>
+
+// Generates computer move in "Rock, Paper, Scissors" game
+function computerPlay() {
+
+  let computer_move;
+
+  // Generate random number 1 - 3
+  rand = Math.floor((Math.random() * 3) + 1);
+
+  // Set computer move based on random number
+  if (rand == 1) {
+    computer_move = 'Rock';
+  } else if (rand == 2) {
+    computer_move = 'Paper';
+  } else {
+    computer_move = 'Scissors';
+  }
+
+  return computer_move;
+}
+
+// Plays a single round of "Rock, Paper, Scissors" game
+function playRound(playerSelection, computerSelection=computerPlay()) {
+
+  let result;
+
+  // Both equal? It's a tie
+  if (playerSelection.toUpperCase() == computerSelection.toUpperCase()) {
+    result = 'Tie!'
+
+  } else if (playerSelection.toUpperCase() == 'ROCK') { // Rock cases
+
+    if (computerSelection.toUpperCase() == 'PAPER') { // Computer is paper: computer wins
+      result = 'You Lose! Paper beats Rock!';
+    }
+
+    else {
+      result = 'You win! Rock beats Scissor!'; // Computer is scissor: you win
+    }
+
+  } else if (playerSelection.toUpperCase() == 'PAPER') { // Paper cases
+
+    if (computerSelection.toUpperCase() == 'ROCK') { // Computer is rock: you win
+      result = 'You Win! Paper beats Rock!';
+    }
+
+    else {
+      result = 'You Lose! Scissors beats Paper!'; // Computer is scissor: you lose
+    }
+
+  } else { // Scissor cases
+
+    if (computerSelection.toUpperCase() == 'ROCK') { // Computer is rock: you lose
+      result = 'You Lose! Rock beats Scissors!';
+    }
+
+    else {
+      result = 'You Win! Scissors beat Paper!'; // Computer is paper: you win
+    }
+
+  }
+
+  return result;
+
+}
+
+// Plays a 5-round game
+function game() {
+  let computer_counter = 0;
+  let player_counter = 0;
+  let winner;
+  let result;
+  let game_prompt = 'Input your play for round '
+
+  let i = 0;
+  for (i = 0; i < 5; i++) {
+
+    // Get player input
+    let user_guess = prompt(game_prompt + (i + 1));
+
+    // If prompt is null (user cancels the input):
+    if (user_guess == null) {
+      alert('Game ended early.')
+      return;
+    }
+
+    // Play a round
+    result = playRound(user_guess);
+
+    if (result.includes('Win')) {
+      player_counter++;
+    } else if (result.includes('Lose')) {
+      computer_counter++;
+    }
+
+    game_prompt = result + '\n\n' + 'Player: ' + player_counter + ' Computer: ' + computer_counter + '\nInput your play for round '
+  }
+
+  // Determining winner, loser or tie
+  if (computer_counter == player_counter) {
+    winner = 'Tie Game!';
+  } else if (computer_counter > player_counter) {
+    winner = 'Computer Wins the Game!\n\n Final Score - Player: ' + player_counter + ' Computer: ' + computer_counter;
+  } else {
+    winner = 'You Win the Game!\n\n Final Score - Player: ' + player_counter + ' Computer: ' + computer_counter;
+  }
+
+  alert(winner);
+  return;
+}
+
+</script>
+
+</html>
