@@ -1,0 +1,27 @@
+/* Global style */
+
+#container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 40vmax;
+  width: 40vmax;
+  align-content: flex-start;
+  margin: 0 auto;
+}
+
+.grid {
+  flex: 0 0 calc(100% * (1/16));
+  height: calc(100% * (1/16));
+  background-color: lightpink;
+}
+
+h2 {
+  text-align: center;
+}
+
+#reset_button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 15px;
+}

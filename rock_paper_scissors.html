@@ -2,9 +2,13 @@
 
 
 
-<button onclick="game()">Rock Paper Scissors Shoot!</button>
+<button id="rps_game">Rock Paper Scissors Shoot!</button>
 
 <script>
+
+// On click event listener for game
+var game_button = document.querySelector('#rps_game');
+game_button.addEventListener('click', game);
 
 // Generates computer move in "Rock, Paper, Scissors" game
 function computerPlay() {

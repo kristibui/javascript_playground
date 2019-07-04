@@ -1,0 +1,75 @@
+<html>
+  <body>
+    <h1>
+      Javascript Dom Manipulation Practice
+    </h1>
+
+    <!-- Event button alert method 1: attach function attributes directly -->
+    <button onclick="alert('Hello World!')">Version 1 - Click Me!</button>
+
+    <!-- Method 2: set on_event property -->
+    <button id="btn">Version 2 - Click Me!</button>
+
+    <!-- Method 3: attach event listeners to JS nodes -->
+    <button id="btn_2">Version 3 - Click Me!</button>
+
+    <div id="container"></div>
+  </body>
+
+
+  <script>
+
+    // Method 2: Setting on_event property
+    var btn = document.querySelector('#btn');
+    btn.onclick = () => alert("Hello World!");
+
+    // Method 3: Event listener
+    var btn_2 = document.querySelector('#btn_2');
+    btn_2.addEventListener('click', () => {
+      alert("Hello World!");
+    });
+
+    // your javascript file
+    const container = document.querySelector('#container');
+
+    const content = document.createElement('div');
+    content.classList.add('content');
+    content.textContent = 'This is the glorious text-content!';
+
+    container.appendChild(content);
+
+    // Exercises 1 - 3: add to container...
+    // Exercise 1. add <p> w/ red text that says "Hey I'm Red!"
+    const red_p = document.createElement('p');
+    red_p.style.color = 'red';
+    red_p.textContent = "Hey I'm Red!";
+    container.appendChild(red_p);
+
+    // Exercise 2. add <h3> with blue text that says "I'm a blue h3!"
+    const blue_h3 = document.createElement('h3');
+    blue_h3.style.color = 'blue';
+    blue_h3.textContent = "I'm a blue h3!";
+    container.appendChild(blue_h3);
+
+    // Exercise 3. A <div> with a black border and pink background color with
+    // the following elements inside...
+    const content_2 = document.createElement('div');
+    content_2.setAttribute('style', 'border: 1px solid black; background: pink');
+
+    // 3a. Another <h1> that says "I'm in a div"
+    const div_h1 = document.createElement('h1');
+    div_h1.textContent = "I'm in a div";
+
+    // 3b. A <p> that says "ME TOO!"
+    const div_p = document.createElement('p');
+    div_p.textContent = "ME TOO!"
+
+    content_2.appendChild(div_h1)
+    content_2.appendChild(div_p)
+    container.appendChild(content_2)
+
+  </script>
+
+
+
+</html>
