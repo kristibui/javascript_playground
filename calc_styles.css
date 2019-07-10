@@ -1,0 +1,75 @@
+/* global style */
+
+h2 {
+  text-align: center;
+  color: darkgrey;
+}
+
+button {
+  height: 85px;
+  width: 85px;
+  float: left;
+  background-color: white;
+  border-radius: 50%;
+  margin: 15px;
+  border: 0px;
+  font-size: 25px;
+  color: darkgrey;
+}
+
+/* calculator body */
+
+#container {
+  height: 700px;
+  width: 500px;
+  background-color: lightpink;
+  border-radius: 25px;
+  margin: 0 auto;
+}
+
+#input {
+  height: 100px;
+  width: 440px;
+  float: left;
+  background-color: white;
+  border-radius: 15px;
+  margin: 20px 30px 10px 30px;
+}
+
+#input_text {
+  padding-right: 30px;
+  text-align: right;
+  color: darkgrey;
+  font-size: 90px;
+  margin: 0px;
+}
+
+.operand {
+  background-color: darkgrey;
+  color: white;
+}
+
+#seven {
+  margin-left: 30px;
+}
+
+#four {
+  margin-left: 30px;
+}
+
+#one {
+  margin-left: 30px;
+}
+
+#zero {
+  margin-left: 30px;
+}
+
+#clear {
+  width: 440px;
+  border-radius: 15px;
+  margin: 5px 30px 0px 30px;
+  font-size: 50px;
+  color: white;
+  background-color: lightblue;
+}
