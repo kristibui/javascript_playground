@@ -109,7 +109,7 @@ function populate_input(button) {
   // 4. If input_one is undefined, set input_one variable
   } else if ((input_one == undefined) && (!isNaN(button_val))) {
     input_one = (button_val * decimal);
-    input.innerText = input_one;
+    input.innerText = parseFloat(input_one.toFixed(6));
 
   // 5. If input_one is defined but nothing else, add more numbers
   } else if ((input_one !== undefined) && (input_two == undefined) &&
@@ -128,14 +128,14 @@ function populate_input(button) {
     decimal_flag = false;
     decimal = 1;
 
-  // 7. If input_one is defined, operand is defined and user clicks on a value,
+  // 7. If input_two is defined, operand is defined and user clicks on a value,
   //    set value of input_two
   } else if ((input_one !== undefined) && (operand !== undefined) &&
             (input_two == undefined) && (!isNaN(button_val))) {
     input_two = button_val * decimal;
-    input.innerText = input_two;
+    input.innerText = parseFloat(input_two.toFixed(6));
 
-  // 8. If input_one is defined but nothing else, add more numbers
+  // 8. If input_two is defined but nothing else, add more numbers
   } else if ((input_one !== undefined) && (input_two !== undefined) &&
               (operand !== undefined) && (!isNaN(button_val))) {
     input_two = input_two + (button_val * decimal);
