@@ -1,9 +1,11 @@
 // SIMPLE CALCULATOR PROGRAM
 
-// variables x and y
+// global variables
 let input_one;
 let input_two;
 let operand;
+let decimal = 1;  // Decimal
+let decimal_flag = false; // Decimal flag
 
 // Addition
 function add(x, y) {
@@ -81,56 +83,82 @@ function populate_input(button) {
     input_one = undefined;
     input_two = undefined;
     operator = undefined;
+    decimal = 1;
+    decimal_flag = false;
     input.innerText = '';
 
   // 2. Premature '=': don't do anything
   } else if ((input_one == undefined || input_two == undefined)
-            && (button_val == "=")) {
-    // Do nothing
+              && (button_val == "=")) {
 
-  // 2. If input_one is undefined, set input_one variable
+  // 3. Decimal (only one)
+  } else if (button_val == ".") {
+
+    if (input.innerText.includes(".")) {
+      return;
+
+    } else {
+      if (isNaN(input.innerText)) {
+        input.innerText = ".";
+      } else {
+        input.innerText = input.innerText + ".";
+      }
+      decimal_flag = true;
+    }
+
+  // 4. If input_one is undefined, set input_one variable
   } else if ((input_one == undefined) && (!isNaN(button_val))) {
-    input_one = button_val;
+    input_one = (button_val * decimal);
     input.innerText = input_one;
 
-  // 3. If input_one is defined but nothing else, add more numbers
+  // 5. If input_one is defined but nothing else, add more numbers
   } else if ((input_one !== undefined) && (input_two == undefined) &&
               (operand == undefined) && (!isNaN(button_val))) {
-    input_one = input_one + button_val;
-    input.innerText = input_one;
+    input_one = input_one + (button_val * decimal);
+    input.innerText = input.innerText + button_val;
 
-  // 4. If input_one is defined and user clicks on a non-value, set operand
+  // 6. If input_one is defined and user clicks on a non-value, set operand
   //    equal to the value
   } else if ((input_one !== undefined) && (input_two == undefined) &&
               (isNaN(button_val))) {
     operand = button_val;
     input.innerText = operand;
 
-  // 5. If input_one is defined, operand is defined and user clicks on a value,
+    // Reset decimals
+    decimal_flag = false;
+    decimal = 1;
+
+  // 7. If input_one is defined, operand is defined and user clicks on a value,
   //    set value of input_two
   } else if ((input_one !== undefined) && (operand !== undefined) &&
             (input_two == undefined) && (!isNaN(button_val))) {
-    input_two = button_val;
+    input_two = button_val * decimal;
     input.innerText = input_two;
 
-  // 6. If input_one is defined but nothing else, add more numbers
+  // 8. If input_one is defined but nothing else, add more numbers
   } else if ((input_one !== undefined) && (input_two !== undefined) &&
               (operand !== undefined) && (!isNaN(button_val))) {
-    input_two = input_two + button_val;
-    input.innerText = input_two;
+    input_two = input_two + (button_val * decimal);
+    input.innerText = input.innerText + button_val;
   }
 
   // If all of them are defined, calculate
   if ((input_one !== undefined) && (input_two !== undefined) &&
       (operand !== undefined) && button_val == "=") {
-        let result = operate(operand, parseInt(input_one), parseInt(input_two));
-        input.innerText = result;
+        let result = operate(operand, parseFloat(input_one),
+                      parseFloat(input_two));
 
-        // TODO:
-        // - get decimals '.' to work
-        // - round very long decimals
-        // - represent long ints to power of 10
-        // alert(input.innerText.replace(/[^0-9]/g,"").length);
+        // Trim super long integers
+        if ((String(result).replace(/[^0-9]/g,"").length >= 9) &&
+            (Math.abs(result) >= 1)) {
+          result = result.toExponential();
+
+        } else if ((String(result).replace(/[^0-9]/g,"").length >= 9) &&
+            (Math.abs(result) <= 1)) {
+          result = parseFloat(result.toFixed(6));
+        }
+
+        input.innerText = result;
 
         // Edgecase: division by 0
         if (String(result).includes("error")) {
@@ -138,8 +166,7 @@ function populate_input(button) {
           input_two = undefined;
           operand = undefined;
 
-        // Reset: set result = input_one,
-        // reset other variables
+        // Reset: set result = input_one, reset other variables
         } else {
           input_one = result;
           input_two = undefined;
@@ -147,7 +174,10 @@ function populate_input(button) {
         }
       }
 
-  //alert(input_one + ' '  + operand  + ' ' + input_two)
+      // Decimal Reset
+      if (decimal_flag) {
+      decimal = decimal * (1/10);
+    }
 }
 
 // Execute program
